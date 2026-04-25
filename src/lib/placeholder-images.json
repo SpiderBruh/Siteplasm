@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "project-restaurant",
+      "description": "Premium restaurant digital experience",
+      "imageUrl": "https://picsum.photos/seed/8/1200/800",
+      "imageHint": "modern restaurant"
+    },
+    {
+      "id": "project-clinic",
+      "description": "Healthcare patient portal and booking",
+      "imageUrl": "https://picsum.photos/seed/15/1200/800",
+      "imageHint": "medical clinic"
+    },
+    {
+      "id": "project-salon",
+      "description": "Boutique salon e-commerce and booking",
+      "imageUrl": "https://picsum.photos/seed/23/1200/800",
+      "imageHint": "luxury salon"
+    },
+    {
+      "id": "project-realestate",
+      "description": "Modern real estate listing platform",
+      "imageUrl": "https://picsum.photos/seed/42/1200/800",
+      "imageHint": "real estate"
+    }
+  ]
 }
