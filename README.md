@@ -59,3 +59,4 @@ This project is configured for seamless deployment via [Firebase App Hosting](ht
 
 ---
 ✦ Built with speed and precision by Siteplasm*
+# Siteplasm
