@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'Siteplasm* crafts high-converting websites and web apps for businesses that want results, not just a pretty site.',
 };
 
+import SmoothScroll from '@/components/SmoothScroll';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,7 +23,9 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <div className="grain-overlay" />
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { aiProjectInquiryAssistant } from '@/ai/flows/ai-project-inquiry-assistant';
 import { Send, MessageSquareText, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+import { sendInquiryNotification } from '@/lib/resend';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -23,6 +25,7 @@ const formSchema = z.object({
 
 export const Contact: React.FC = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [aiQuery, setAiQuery] = useState("");
   const [aiResponse, setAiResponse] = useState("");
@@ -39,12 +42,44 @@ export const Contact: React.FC = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Message Sent",
-      description: "We'll get back to you within 24 hours.",
-    });
-    form.reset();
+    setIsSubmitting(true);
+    try {
+      // 1. Save to Supabase
+      const { error: dbError } = await supabase
+        .from('leads')
+        .insert([{
+          name: values.name,
+          email: values.email,
+          project_type: values.businessType,
+          message: `${values.description} (Budget: ${values.budget})`,
+          status: 'new'
+        }]);
+
+      if (dbError) throw dbError;
+
+      // 2. Send Email via Resend
+      await sendInquiryNotification({
+        name: values.name,
+        email: values.email,
+        message: values.description,
+        projectType: values.businessType
+      });
+
+      toast({
+        title: "Message Sent Successfully!",
+        description: "We've received your inquiry and will get back to you within 24 hours.",
+      });
+      form.reset();
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: "Something went wrong. Please try again or email us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleAiInquiry = async () => {
@@ -53,11 +88,17 @@ export const Contact: React.FC = () => {
     try {
       const result = await aiProjectInquiryAssistant({ query: aiQuery });
       setAiResponse(result.answer);
+      
+      // Log AI interaction to Supabase (Optional)
+      await supabase.from('ai_logs').insert([{
+        query: aiQuery,
+        response: result.answer
+      }]);
     } catch (error) {
       toast({
         variant: "destructive",
         title: "AI Assistant Offline",
-        description: "Please try again later or email us.",
+        description: "Please check your API keys or try again later.",
       });
     } finally {
       setAiLoading(false);
@@ -92,14 +133,14 @@ export const Contact: React.FC = () => {
             <div className="bg-surface p-8 border border-border mt-12 space-y-4 relative overflow-hidden group">
               <div className="flex items-center gap-3 mb-2">
                 <MessageSquareText className="w-5 h-5 text-highlight" />
-                <h3 className="font-subheading text-lg text-primary uppercase">Project Assistant</h3>
+                <h3 className="font-subheading text-lg text-primary uppercase">Lead Strategist AI</h3>
               </div>
               <p className="font-body text-sm text-secondary">
-                Got a quick question about our services or process? Ask our AI.
+                Ready to scale? Ask our AI strategist about your project goals or our 48-hour prototyping process.
               </p>
               <div className="flex gap-2">
                 <Input 
-                  placeholder="e.g., How much for a landing page?" 
+                  placeholder="e.g., Can you build a prototype in 48 hours?" 
                   className="bg-background border-border text-primary focus:ring-highlight rounded-none"
                   value={aiQuery}
                   onChange={(e) => setAiQuery(e.target.value)}

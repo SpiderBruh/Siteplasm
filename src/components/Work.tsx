@@ -3,9 +3,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { client } from '@/sanity/lib/client';
 
-const PROJECTS = [
+const PROJECTS_FALLBACK = [
   { 
     id: "project-restaurant", 
     name: "La Table", 
@@ -36,7 +36,30 @@ const PROJECTS = [
   },
 ];
 
+const PROJECTS_QUERY = `*[_type == "project"] | order(publishedAt desc) {
+  "id": _id,
+  "name": title,
+  "tag": categories[0],
+  "tech": categories,
+  "image": mainImage.asset->url
+}`;
+
 export const Work: React.FC = () => {
+  const [projects, setProjects] = React.useState<any[]>(PROJECTS_FALLBACK);
+
+  React.useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await client.fetch(PROJECTS_QUERY);
+        if (data && data.length > 0) {
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Error fetching from Sanity, using fallback:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
   return (
     <section id="work" className="py-24 md:py-48 container mx-auto px-6">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
@@ -54,7 +77,7 @@ export const Work: React.FC = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 md:gap-24">
-        {PROJECTS.map((project, i) => (
+        {projects.map((project, i) => (
           <motion.div 
             key={project.id}
             initial={{ opacity: 0, y: 30 }}
