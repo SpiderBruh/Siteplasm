@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>E-Commerce — Built by Siteplasm*</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'DM Sans',sans-serif;min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 48px;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:rgba(8,8,8,0.95);backdrop-filter:blur(10px);z-index:100}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.08em}
+.logo span{color:#FF3E00}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:#555;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.cart-btn{background:#FF3E00;color:#fff;border:none;padding:8px 20px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.08em;cursor:pointer}
+hero-section{display:flex;align-items:center;min-height:60vh;padding:80px 48px;gap:80px;max-width:1200px;margin:0 auto}
+hero-section .copy{flex:1}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#FF3E00;text-transform:uppercase;letter-spacing:0.3em;margin-bottom:20px;display:block}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,6vw,90px);line-height:0.88;margin-bottom:24px;letter-spacing:0.02em}
+h1 em{color:#FF3E00;font-style:normal}
+.hero-desc{color:#555;font-size:15px;line-height:1.7;margin-bottom:32px;max-width:420px}
+.hero-cta{display:flex;gap:12px}
+.btn-primary{background:#FF3E00;color:#fff;border:none;padding:14px 32px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.08em;cursor:pointer;transition:opacity .2s}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{background:transparent;color:#fff;border:1px solid #222;padding:14px 32px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.08em;cursor:pointer;transition:border-color .2s}
+.btn-ghost:hover{border-color:#fff}
+.hero-img{flex:1;aspect-ratio:4/5;background:linear-gradient(160deg,#111 0%,#1a0a00 50%,#0a0005 100%);display:flex;align-items:center;justify-content:center;max-width:380px}
+.hero-img-inner{text-align:center;padding:40px}
+.product-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:#FF3E00;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:20px}
+.product-emoji{font-size:80px;display:block;margin-bottom:20px}
+.product-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;margin-bottom:4px}
+.product-price{font-family:'JetBrains Mono',monospace;font-size:14px;color:#FF3E00}
+.products-section{padding:60px 48px;max-width:1200px;margin:0 auto}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+.sh-left .tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:#FF3E00;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:8px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,48px);letter-spacing:0.03em}
+.view-all{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;transition:color .2s}
+.view-all:hover{color:#fff}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.product-card{background:#0d0d0d;border:1px solid #1a1a1a;overflow:hidden;cursor:pointer;transition:border-color .3s}
+.product-card:hover{border-color:#333}
+.pc-img{aspect-ratio:3/4;background:linear-gradient(160deg,#111,#0a0a0a);display:flex;align-items:center;justify-content:center;font-size:48px;border-bottom:1px solid #111;position:relative}
+.pc-badge{position:absolute;top:10px;left:10px;background:#FF3E00;color:#fff;font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 8px;text-transform:uppercase;letter-spacing:0.08em}
+.pc-body{padding:14px}
+.pc-cat{font-family:'JetBrains Mono',monospace;font-size:8px;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.pc-name{font-size:12px;font-weight:600;color:#ccc;margin-bottom:8px}
+.pc-price{font-family:'JetBrains Mono',monospace;font-size:12px;color:#FF3E00}
+.pc-old{text-decoration:line-through;color:#333;margin-right:6px}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">AURA<span>*</span></div>
+  <div class="nav-links">
+    <a href="#">New In</a>
+    <a href="#">Women</a>
+    <a href="#">Men</a>
+    <a href="#">Sale</a>
+  </div>
+  <button class="cart-btn">CART (2) →</button>
+</nav>
+<hero-section>
+  <div class="copy">
+    <span class="eyebrow">[ NEW COLLECTION · SS25 ]</span>
+    <h1>WEAR WHAT YOU <em>MEAN.</em></h1>
+    <p class="hero-desc">Aura* is a Bacolod-based boutique for people who dress with intention. Every piece is limited. Every piece means something.</p>
+    <div class="hero-cta">
+      <button class="btn-primary">Shop Now →</button>
+      <button class="btn-ghost">View Lookbook</button>
+    </div>
+  </div>
+  <div class="hero-img">
+    <div class="hero-img-inner">
+      <div class="product-tag">[ SS25 FEATURED ]</div>
+      <span class="product-emoji">👗</span>
+      <div class="product-name">THE LINEN SET</div>
+      <div class="product-price">₱2,800</div>
+    </div>
+  </div>
+</hero-section>
+<div class="products-section">
+  <div class="section-header">
+    <div class="sh-left">
+      <div class="tag">[ JUST DROPPED ]</div>
+      <h2>NEW ARRIVALS</h2>
+    </div>
+    <a class="view-all" href="#">View All →</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card"><div class="pc-img"><div class="pc-badge">New</div>👗</div><div class="pc-body"><div class="pc-cat">Women · Tops</div><div class="pc-name">Washed Linen Blouse</div><div class="pc-price">₱1,400</div></div></div>
+    <div class="product-card"><div class="pc-img"><div class="pc-badge">-20%</div>🧥</div><div class="pc-body"><div class="pc-cat">Men · Outerwear</div><div class="pc-name">Cream Overshirt</div><div class="pc-price"><span class="pc-old">₱2,200</span>₱1,760</div></div></div>
+    <div class="product-card"><div class="pc-img">👖</div><div class="pc-body"><div class="pc-cat">Unisex · Bottoms</div><div class="pc-name">Wide-Leg Chinos</div><div class="pc-price">₱1,800</div></div></div>
+    <div class="product-card"><div class="pc-img"><div class="pc-badge">Low Stock</div>👟</div><div class="pc-body"><div class="pc-cat">Footwear</div><div class="pc-name">Canvas Lo-Tops</div><div class="pc-price">₱3,200</div></div></div>
+  </div>
+</div>
+<div style="padding:20px 48px;border-top:1px solid #111;display:flex;justify-content:space-between;align-items:center">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:0.1em">© 2025 Aura Boutique · Bacolod</span>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#FF3E00;text-transform:uppercase;letter-spacing:0.1em">[ Built by Siteplasm* ]</span>
+</div>
+</body>
+</html>

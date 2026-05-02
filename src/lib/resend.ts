@@ -21,7 +21,7 @@ export async function sendInquiryNotification(data: {
   try {
     const { data: res, error } = await resend.emails.send({
       from: 'Siteplasm* <onboarding@resend.dev>', // Replace with your verified domain
-      to: [process.env.CONTACT_EMAIL || 'hello@siteplasm.com'],
+      to: [process.env.CONTACT_EMAIL || 'cesaresmero2@gmail.com'],
       subject: `[NEW LEAD] ${data.projectType || 'General Inquiry'} - ${data.name}`,
       html: `
         <div style="font-family: 'Helvetica', sans-serif; background-color: #0a0a0a; color: #ffffff; padding: 40px; border: 1px solid #333;">

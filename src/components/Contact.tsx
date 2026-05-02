@@ -112,15 +112,21 @@ export const Contact: React.FC = () => {
           <div className="space-y-12">
             <div>
               <p className="font-code text-highlight uppercase tracking-[0.3em] text-sm mb-4">
-                [ GET IN TOUCH ]
+                [ NO COMMITMENT. JUST A CONVERSATION. ]
               </p>
               <h2 className="font-headline text-6xl md:text-9xl text-primary leading-[0.85]">
-                READY TO BUILD SOMETHING GREAT?
+                LET&apos;S TALK ABOUT YOUR REVENUE MACHINE.
               </h2>
             </div>
             <p className="font-body text-xl text-secondary leading-relaxed max-w-lg">
-              Tell us about your project. We'll get back to you within 24 hours with a scope and quote.
+              Tell us what you&apos;re building. We&apos;ll respond within 24 hours with a clear scope, exact price, and delivery date. No vague proposals. No "we&apos;ll get back to you." A real answer.
             </p>
+            <div className="border border-border p-6">
+              <p className="font-code text-xs text-highlight uppercase tracking-widest mb-3">🛡️ Our promise to you</p>
+              <p className="font-body text-sm text-secondary leading-relaxed">
+                You&apos;ll know the price before we start. You&apos;ll have a working prototype in 48 hours. Your site will be live in 5 days. And if you don&apos;t see results in 90 days, we rebuild it free.
+              </p>
+            </div>
             
             <div className="space-y-4 pt-12 border-t border-border">
               <p className="font-code text-secondary text-sm">Or email us directly at</p>

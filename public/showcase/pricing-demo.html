@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pricing Page — Built by Siteplasm*</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'DM Sans',sans-serif;padding:60px 40px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:#FF3E00;text-transform:uppercase;letter-spacing:0.3em;text-align:center;margin-bottom:16px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);text-align:center;margin-bottom:12px;letter-spacing:0.03em}
+.sub{text-align:center;color:#555;font-size:14px;max-width:480px;margin:0 auto 48px;line-height:1.6}
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1a1a1a;max-width:900px;margin:0 auto 48px}
+.tier{background:#0a0a0a;padding:36px 28px;position:relative}
+.tier.featured{background:#0f0a08;outline:1px solid #FF3E00}
+.tier-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#FF3E00;color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 12px;text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap}
+.tier-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px}
+.tier-price{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:4px;letter-spacing:0.02em}
+.tier-price span{font-size:20px;color:#555;font-family:'DM Sans',sans-serif;font-weight:400}
+.tier-desc{font-size:12px;color:#444;margin-bottom:28px;line-height:1.6}
+.feat-list{list-style:none;margin-bottom:32px}
+.feat-list li{font-size:12px;color:#888;padding:7px 0;border-bottom:1px solid #111;display:flex;align-items:center;gap:8px}
+.feat-list li::before{content:'→';color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:10px;flex-shrink:0}
+.feat-list li.no{color:#333}
+.feat-list li.no::before{content:'—';color:#222}
+.btn{display:block;text-align:center;padding:12px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.08em;cursor:pointer;border:none;transition:opacity .2s}
+.btn-ghost{background:transparent;border:1px solid #1e1e1e;color:#666}
+.btn-ghost:hover{border-color:#fff;color:#fff}
+.btn-primary{background:#FF3E00;color:#fff}
+.btn-primary:hover{opacity:0.85}
+.compare-note{text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;text-transform:uppercase;letter-spacing:0.1em}
+.guarantee{max-width:600px;margin:0 auto 48px;background:#0f0f0f;border:1px solid #1e1e1e;padding:24px 28px;display:flex;gap:20px;align-items:flex-start}
+.g-icon{font-size:28px;flex-shrink:0}
+.g-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.05em;margin-bottom:4px}
+.g-desc{font-size:12px;color:#555;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="eyebrow">[ TRANSPARENT PRICING ]</div>
+<h1>INVEST ONCE. GROW FOREVER.</h1>
+<p class="sub">No subscriptions. No retainer traps. One payment, one project, owned forever. Or stay on retainer — your call.</p>
+
+<div class="guarantee">
+  <div class="g-icon">🛡️</div>
+  <div>
+    <div class="g-title">90-DAY ROI GUARANTEE</div>
+    <div class="g-desc">If your new website doesn't generate more inquiries, bookings, or sales within 90 days of going live — we rebuild it. Free. No questions asked. That's how confident we are.</div>
+  </div>
+</div>
+
+<div class="tier-grid">
+  <div class="tier">
+    <div class="tier-name">Starter</div>
+    <div class="tier-price">₱15<span>K</span></div>
+    <div class="tier-desc">Perfect for new businesses that need a professional online presence — fast.</div>
+    <ul class="feat-list">
+      <li>1-page landing site</li>
+      <li>Mobile-responsive design</li>
+      <li>Contact form + email capture</li>
+      <li>SEO foundation setup</li>
+      <li>5-day delivery</li>
+      <li class="no">Custom web app features</li>
+      <li class="no">E-commerce / payments</li>
+    </ul>
+    <button class="btn btn-ghost">Start Here →</button>
+  </div>
+  <div class="tier featured">
+    <div class="tier-badge">⚡ Most Popular</div>
+    <div class="tier-name">Growth</div>
+    <div class="tier-price">₱30<span>K</span></div>
+    <div class="tier-desc">Full website that actually converts. This is where most serious businesses start.</div>
+    <ul class="feat-list">
+      <li>Up to 8 pages</li>
+      <li>Custom design system</li>
+      <li>Booking or inquiry system</li>
+      <li>CMS for easy content updates</li>
+      <li>Performance optimization</li>
+      <li>SEO + analytics setup</li>
+      <li class="no">Full web app / SaaS features</li>
+    </ul>
+    <button class="btn btn-primary">Get Started →</button>
+  </div>
+  <div class="tier">
+    <div class="tier-name">Scale</div>
+    <div class="tier-price">₱60<span>K+</span></div>
+    <div class="tier-desc">Full web apps, SaaS platforms, and complex systems built to handle real growth.</div>
+    <ul class="feat-list">
+      <li>Custom web application</li>
+      <li>User authentication</li>
+      <li>Database + backend (Supabase)</li>
+      <li>Payment integration</li>
+      <li>Admin dashboard</li>
+      <li>API integrations</li>
+      <li>Dedicated launch support</li>
+    </ul>
+    <button class="btn btn-ghost">Let's Talk →</button>
+  </div>
+</div>
+<div class="compare-note">[ ALL PRICES IN PHP · INCLUDES HOSTING SETUP · VAT NOT INCLUDED ] · Built by Siteplasm*</div>
+</body>
+</html>

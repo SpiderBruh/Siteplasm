@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Agency Dashboard — Built by Siteplasm*</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'DM Sans',sans-serif;display:flex;height:100vh;overflow:hidden}
+.sidebar{width:200px;border-right:1px solid #1a1a1a;background:#0f0f0f;flex-shrink:0;display:flex;flex-direction:column}
+.logo-wrap{padding:24px 20px;border-bottom:1px solid #1a1a1a}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px}
+.logo span{color:#FF3E00}
+.nav{padding:16px 12px;flex:1}
+.ni{display:flex;align-items:center;gap:8px;padding:9px 12px;color:#444;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;margin-bottom:2px;transition:color .2s}
+.ni:hover{color:#fff}
+.ni.a{color:#fff;background:rgba(255,62,0,0.08);border-left:2px solid #FF3E00}
+.dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:0.4}
+.ni.a .dot{background:#FF3E00;opacity:1}
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.topbar{padding:18px 28px;border-bottom:1px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;background:rgba(8,8,8,0.9);position:sticky;top:0;z-index:10}
+.pt{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.05em}
+.badge{background:rgba(255,62,0,0.1);border:1px solid rgba(255,62,0,0.2);color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;letter-spacing:0.1em;text-transform:uppercase}
+.av{width:30px;height:30px;border-radius:50%;background:#FF3E00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.content{padding:28px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi{background:#0f0f0f;border:1px solid #1a1a1a;padding:20px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;top:0;right:0;width:2px;height:100%;background:#FF3E00}
+.kl{font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
+.kn{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1}
+.kd{font-family:'JetBrains Mono',monospace;font-size:9px;color:#00D26A;margin-top:6px}
+.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:24px}
+.card{background:#0f0f0f;border:1px solid #1a1a1a;padding:22px}
+.ct{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.05em;margin-bottom:4px}
+.cs{font-family:'JetBrains Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;margin-bottom:20px}
+table{width:100%;border-collapse:collapse}
+th{font-family:'JetBrains Mono',monospace;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:0.1em;text-align:left;padding:8px 0;border-bottom:1px solid #1a1a1a}
+td{padding:11px 0;font-size:12px;color:#bbb;border-bottom:1px solid rgba(255,255,255,0.03)}
+.pill{display:inline-block;padding:2px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase}
+.live{background:rgba(0,210,106,0.1);color:#00D26A}
+.wip{background:rgba(255,214,10,0.1);color:#FFD60A}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo-wrap"><div class="logo">PULSE<span>*</span></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;margin-top:3px;text-transform:uppercase">Agency OS</div></div>
+  <div class="nav">
+    <div class="ni a"><div class="dot"></div>Overview</div>
+    <div class="ni"><div class="dot"></div>Clients</div>
+    <div class="ni"><div class="dot"></div>Projects</div>
+    <div class="ni"><div class="dot"></div>Revenue</div>
+    <div class="ni"><div class="dot"></div>Pipeline</div>
+  </div>
+  <div style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:9px;color:#1a1a1a;text-transform:uppercase">Built by Siteplasm*</div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="pt">OVERVIEW — MAY 2025</div>
+    <div style="display:flex;gap:10px;align-items:center"><div class="badge">Live</div><div class="av">CE</div></div>
+  </div>
+  <div class="content">
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kl">Monthly Revenue</div><div class="kn">₱284K</div><div class="kd">▲ +23% vs last month</div></div>
+      <div class="kpi"><div class="kl">Active Clients</div><div class="kn">47</div><div class="kd">▲ +6 this month</div></div>
+      <div class="kpi"><div class="kl">Projects Live</div><div class="kn">12</div><div class="kd">▲ 3 launching this week</div></div>
+      <div class="kpi"><div class="kl">Avg Delivery</div><div class="kn">5.2D</div><div class="kd">▲ Down from 7.1 days</div></div>
+    </div>
+    <div class="charts-row">
+      <div class="card">
+        <div class="ct">REVENUE TREND</div><div class="cs">Last 8 months</div>
+        <svg viewBox="0 0 560 140" style="width:100%;height:140px">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF3E00" stop-opacity="0.15"/><stop offset="100%" stop-color="#FF3E00" stop-opacity="0"/></linearGradient></defs>
+          <polygon points="0,120 80,105 160,88 240,75 320,58 400,44 480,30 560,16 560,140 0,140" fill="url(#g)"/>
+          <polyline points="0,120 80,105 160,88 240,75 320,58 400,44 480,30 560,16" fill="none" stroke="#FF3E00" stroke-width="2"/>
+          <circle cx="560" cy="16" r="3" fill="#FF3E00"/>
+        </svg>
+      </div>
+      <div class="card">
+        <div class="ct">REVENUE MIX</div><div class="cs">By service type</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+          <div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-bottom:5px;text-transform:uppercase"><span>Web Apps</span><span style="color:#fff">48%</span></div><div style="height:3px;background:#1a1a1a"><div style="width:48%;height:100%;background:#FF3E00"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-bottom:5px;text-transform:uppercase"><span>Landing Pages</span><span style="color:#fff">29%</span></div><div style="height:3px;background:#1a1a1a"><div style="width:29%;height:100%;background:#2D5BFF"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9px;color:#444;margin-bottom:5px;text-transform:uppercase"><span>E-Commerce</span><span style="color:#fff">23%</span></div><div style="height:3px;background:#1a1a1a"><div style="width:23%;height:100%;background:#00D26A"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div class="ct">RECENT PROJECTS</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;text-transform:uppercase">[ SITEPLASM* ]</div></div>
+      <table>
+        <thead><tr><th>Client</th><th>Type</th><th>Value</th><th>Days</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>La Mesa Bistro</td><td style="color:#444;font-size:11px">Restaurant Landing</td><td style="color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:11px">₱18,000</td><td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#444">5d</td><td><span class="pill live">Live</span></td></tr>
+          <tr><td>Vitalis Clinic</td><td style="color:#444;font-size:11px">Booking System</td><td style="color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:11px">₱45,000</td><td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#444">7d</td><td><span class="pill live">Live</span></td></tr>
+          <tr><td>Skyline Props</td><td style="color:#444;font-size:11px">Real Estate Portal</td><td style="color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:11px">₱72,000</td><td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#444">12d</td><td><span class="pill wip">In Progress</span></td></tr>
+          <tr><td>Aura Boutique</td><td style="color:#444;font-size:11px">E-Commerce Store</td><td style="color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:11px">₱38,000</td><td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#444">4d</td><td><span class="pill live">Live</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

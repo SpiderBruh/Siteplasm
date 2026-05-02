@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kanban Board — Built by Siteplasm*</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'DM Sans',sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:14px 24px;border-bottom:1px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;background:#0a0a0a;flex-shrink:0}
+.project-crumb{font-family:'JetBrains Mono',monospace;font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.1em}
+.project-crumb span{color:#fff}
+.sprint-chip{background:rgba(255,62,0,0.1);border:1px solid rgba(255,62,0,0.2);color:#FF3E00;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;letter-spacing:0.1em;text-transform:uppercase}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600}
+.filter-bar{padding:10px 24px;border-bottom:1px solid #111;display:flex;gap:8px;align-items:center;flex-shrink:0;background:#090909}
+.filter-tag{background:#111;border:1px solid #1e1e1e;color:#555;font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer}
+.filter-tag.active{border-color:#FF3E00;color:#FF3E00}
+.board{display:flex;gap:0;flex:1;overflow-x:auto}
+.col{min-width:240px;border-right:1px solid #111;display:flex;flex-direction:column;flex-shrink:0}
+.col-header{padding:14px 16px;border-bottom:1px solid #111;display:flex;justify-content:space-between;align-items:center;background:#0a0a0a;position:sticky;top:0}
+.col-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:#555}
+.col-count{background:#141414;border:1px solid #1e1e1e;color:#444;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;letter-spacing:0.05em}
+.col-title.doing{color:#FFD60A}
+.col-title.review{color:#2D5BFF}
+.col-title.done{color:#00D26A}
+.col-body{padding:12px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:8px}
+.card{background:#0f0f0f;border:1px solid #1a1a1a;padding:12px;cursor:pointer;transition:border-color .2s}
+.card:hover{border-color:#333}
+.card-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 6px;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px}
+.tag-design{background:rgba(45,91,255,0.1);color:#2D5BFF}
+.tag-dev{background:rgba(255,62,0,0.1);color:#FF3E00}
+.tag-bug{background:rgba(255,68,68,0.1);color:#ff4444}
+.tag-content{background:rgba(0,210,106,0.1);color:#00D26A}
+.card-title{font-size:11px;font-weight:600;color:#ccc;margin-bottom:8px;line-height:1.4}
+.card-footer{display:flex;justify-content:space-between;align-items:center}
+.card-avs{display:flex;gap:-4px}
+.card-av{width:18px;height:18px;border-radius:50%;border:1.5px solid #0f0f0f;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:600}
+.pts{font-family:'JetBrains Mono',monospace;font-size:8px;color:#333;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="project-crumb">Siteplasm* / <span>Client Projects</span></div>
+    <div class="sprint-chip">Sprint 12 · Active</div>
+  </div>
+  <div class="topbar-right">
+    <div class="av" style="background:#FF3E00">CE</div>
+    <div class="av" style="background:#2D5BFF">MR</div>
+    <div class="av" style="background:#00D26A">AL</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;margin-left:8px;text-transform:uppercase">Siteplasm*</div>
+  </div>
+</div>
+<div class="filter-bar">
+  <div class="filter-tag active">All</div>
+  <div class="filter-tag">Design</div>
+  <div class="filter-tag">Dev</div>
+  <div class="filter-tag">CE</div>
+  <div class="filter-tag">MR</div>
+  <div style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9px;color:#222;text-transform:uppercase">May 2–8 · 5 days left</div>
+</div>
+<div class="board">
+  <div class="col">
+    <div class="col-header"><div class="col-title">Backlog</div><div class="col-count">4</div></div>
+    <div class="col-body">
+      <div class="card"><div class="card-tag tag-design">Design</div><div class="card-title">Homepage hero animation — La Mesa Bistro v2</div><div class="card-footer"><div class="card-av" style="background:#FF3E00">CE</div><div class="pts">5 pts</div></div></div>
+      <div class="card"><div class="card-tag tag-dev">Dev</div><div class="card-title">Supabase auth integration — Skyline Portal</div><div class="card-footer"><div class="card-av" style="background:#2D5BFF">MR</div><div class="pts">8 pts</div></div></div>
+      <div class="card"><div class="card-tag tag-content">Content</div><div class="card-title">SEO copy review — Vitalis Clinic pages</div><div class="card-footer"><div class="card-av" style="background:#00D26A">AL</div><div class="pts">3 pts</div></div></div>
+      <div class="card"><div class="card-tag tag-design">Design</div><div class="card-title">Mobile app wireframes — Food Delivery MVP</div><div class="card-footer"><div class="card-av" style="background:#FF3E00">CE</div><div class="pts">13 pts</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="col-header"><div class="col-title doing">In Progress</div><div class="col-count">3</div></div>
+    <div class="col-body">
+      <div class="card" style="border-color:#FFD60A22"><div class="card-tag tag-dev">Dev</div><div class="card-title">Sanity CMS schema — Work portfolio section</div><div class="card-footer"><div class="card-av" style="background:#2D5BFF">MR</div><div class="pts">5 pts</div></div></div>
+      <div class="card" style="border-color:#FFD60A22"><div class="card-tag tag-design">Design</div><div class="card-title">Pricing section layout — Siteplasm website</div><div class="card-footer"><div class="card-av" style="background:#FF3E00">CE</div><div class="pts">3 pts</div></div></div>
+      <div class="card" style="border-color:#FFD60A22"><div class="card-tag tag-bug">Bug</div><div class="card-title">Fix mobile nav collapse on iOS Safari</div><div class="card-footer"><div class="card-av" style="background:#00D26A">AL</div><div class="pts">2 pts</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="col-header"><div class="col-title review">In Review</div><div class="col-count">2</div></div>
+    <div class="col-body">
+      <div class="card" style="border-color:#2D5BFF22"><div class="card-tag tag-dev">Dev</div><div class="card-title">Email notification system — Resend integration</div><div class="card-footer"><div class="card-av" style="background:#FF3E00">CE</div><div class="pts">5 pts</div></div></div>
+      <div class="card" style="border-color:#2D5BFF22"><div class="card-tag tag-design">Design</div><div class="card-title">Aura Boutique — E-commerce product page</div><div class="card-footer"><div class="card-av" style="background:#00D26A">AL</div><div class="pts">8 pts</div></div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="col-header"><div class="col-title done">Done</div><div class="col-count">5</div></div>
+    <div class="col-body">
+      <div class="card" style="opacity:0.5"><div class="card-tag tag-dev">Dev</div><div class="card-title">Deploy Vitalis Clinic to Vercel production</div><div class="card-footer"><div class="card-av" style="background:#2D5BFF">MR</div><div class="pts">✓</div></div></div>
+      <div class="card" style="opacity:0.5"><div class="card-tag tag-design">Design</div><div class="card-title">Siteplasm hero section — Hormozi copy rewrite</div><div class="card-footer"><div class="card-av" style="background:#FF3E00">CE</div><div class="pts">✓</div></div></div>
+      <div class="card" style="opacity:0.5"><div class="card-tag tag-content">Content</div><div class="card-title">La Mesa Bistro menu content update</div><div class="card-footer"><div class="card-av" style="background:#00D26A">AL</div><div class="pts">✓</div></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
