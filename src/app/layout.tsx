@@ -1,12 +1,12 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://siteplasm.vercel.app'),
-  title: 'Siteplasm* — Fast, Premium Web Development',
-  description: 'We build websites that convert. Fast. Clean. Guaranteed. Based in Cebu, Philippines. 5-day delivery, zero overhead, real ROI.',
+  title: 'Siteplasm*',
+  description: '47 businesses. 5-day delivery. If you don\'t see ROI in 90 days, we rebuild it free.',
   keywords: 'web development, Cebu, Philippines, agency, Next.js, React, Sanity, Supabase',
   icons: {
     icon: '/siteplasm.svg',
@@ -47,19 +47,21 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "name": "Siteplasm",
-          "description": "Web development agency based in Cebu City, Philippines",
-          "url": "https://siteplasm.vercel.app",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Cebu City",
-            "addressRegion": "Cebu",
-            "addressCountry": "PH"
-          }
-        })}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Siteplasm",
+            "description": "Web development agency based in Cebu City, Philippines",
+            "url": "https://siteplasm.vercel.app",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Cebu City",
+              "addressRegion": "Cebu",
+              "addressCountry": "PH"
+            }
+          })
+        }} />
       </head>
       <body className="font-body antialiased">
         <div className="grain-overlay" />
