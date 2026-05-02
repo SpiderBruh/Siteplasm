@@ -1,10 +1,8 @@
+'use server';
+
 import { Resend } from 'resend';
 
 const resendApiKey = process.env.RESEND_API_KEY;
-
-if (!resendApiKey) {
-  console.warn('Resend API Key is missing. Check your .env.local file.');
-}
 
 const dummyResend = {
   emails: {

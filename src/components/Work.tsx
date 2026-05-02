@@ -79,7 +79,7 @@ export const Work: React.FC = () => {
       <div className="grid md:grid-cols-2 gap-12 md:gap-24">
         {projects.map((project, i) => (
           <motion.div 
-            key={project.id}
+            key={project.id || i}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -89,7 +89,7 @@ export const Work: React.FC = () => {
             <div className="relative aspect-[4/3] overflow-hidden bg-surface mb-6 border border-border group-hover:border-highlight transition-colors duration-500">
               <div 
                 className="absolute inset-0 bg-center bg-cover transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${project.image})` }}
+                style={{ backgroundImage: `url(${project.image || 'https://picsum.photos/seed/placeholder/1200/800'})` }}
                 data-ai-hint="modern project"
               />
               <div className="absolute inset-0 bg-background/20 group-hover:bg-background/0 transition-colors duration-500" />
@@ -102,12 +102,12 @@ export const Work: React.FC = () => {
             <div className="flex justify-between items-start">
               <div>
                 <p className="font-code text-xs text-highlight mb-2">
-                  {project.tech.map(t => `[ ${t} ]`).join(' ')}
+                  {project.tech?.map((t: string) => `[ ${t} ]`).join(' ') || '[ Project ]'}
                 </p>
-                <h3 className="font-subheading text-2xl text-primary">{project.name}</h3>
+                <h3 className="font-subheading text-2xl text-primary">{project.name || 'Untitled Project'}</h3>
               </div>
               <span className="font-code text-[10px] text-secondary border border-border px-2 py-1 uppercase">
-                {project.tag}
+                {project.tag || 'Work'}
               </span>
             </div>
           </motion.div>

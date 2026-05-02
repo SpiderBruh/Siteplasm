@@ -5,28 +5,32 @@
 
 @layer base {
   :root {
-    --background: 0 0% 6%; /* #0F0F0F */
-    --foreground: 40 23% 94%; /* #F5F0E8 */
-    --card: 0 0% 10%; /* #1A1A1A */
-    --card-foreground: 40 23% 94%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 40 23% 94%;
-    --primary: 40 23% 94%; /* #F5F0E8 */
-    --primary-foreground: 0 0% 6%;
-    --secondary: 47 16% 56%; /* #A09880 */
-    --secondary-foreground: 0 0% 6%;
-    --muted: 0 0% 17%; /* #2C2C2C */
-    --muted-foreground: 47 16% 56%;
-    --accent: 38 31% 86%; /* #E8E0D0 */
-    --accent-foreground: 0 0% 6%;
+    --background: 0 0% 0%; /* Pure Black */
+    --foreground: 0 0% 100%; /* Pure White */
+    --card: 0 0% 6%; /* Deep Charcoal */
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 14 100% 50%; /* Electric Orange Base */
+    --accent-foreground: 0 0% 100%;
+    --highlight: 14 100% 50%; /* Brand Highlight */
+    --charcoal: 0 0% 6%; /* Deep Charcoal */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 16%; /* #2A2A2A */
-    --input: 0 0% 16%;
-    --ring: 39 30% 69%; /* #C8B89A */
-    --highlight: 39 30% 69%; /* #C8B89A */
-    --charcoal: 0 0% 17%; /* #2C2C2C */
-    --radius: 0.1rem;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 14 100% 50%;
+    --radius: 0rem; /* Sharp corners for Zero BS feel */
+    
+    /* Dynamic Tweaks (Used by TweakPanel) */
+    --accent-color: #FF3E00;
+    --density-mult: 1.0;
   }
 }
 
@@ -88,4 +92,26 @@
 .magnetic-wrap {
   display: inline-block;
   transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Density-aware spacing utilities */
+.py-section {
+  padding-top: calc(8rem * var(--density-mult));
+  padding-bottom: calc(8rem * var(--density-mult));
+}
+
+.gap-responsive {
+  gap: calc(2rem * var(--density-mult));
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+.border-accent {
+  border-color: var(--accent-color);
 }

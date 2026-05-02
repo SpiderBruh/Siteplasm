@@ -17,7 +17,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="font-code text-highlight uppercase tracking-[0.4em] text-xs md:text-sm mb-6"
+          className="font-code text-accent uppercase tracking-[0.4em] text-xs md:text-sm mb-6"
         >
           [ WEB DEVELOPMENT AGENCY ]
         </motion.p>
@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, ease: "circOut" }}
             className="font-headline text-7xl md:text-[160px] leading-[0.85] text-primary mb-8 text-balance"
           >
-            WE BUILD SITES <br className="hidden md:block" /> THAT SELL
+            WE BUILD SITES <br className="hidden md:block" /> THAT <span className="text-accent italic">SELL</span>
           </motion.h1>
         </div>
 
@@ -49,14 +49,14 @@ export const Hero: React.FC = () => {
           className="flex flex-col md:flex-row items-center justify-center gap-6"
         >
           <Button 
-            className="bg-primary text-background hover:bg-highlight font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all group"
+            className="bg-accent text-white hover:opacity-90 font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all group"
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
           >
             View Our Work
           </Button>
           <Button 
             variant="outline" 
-            className="border-primary text-primary hover:bg-primary hover:text-background font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all"
+            className="border-white/20 text-white hover:bg-white hover:text-black font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
             Start a Project

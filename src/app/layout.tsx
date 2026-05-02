@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from '@/components/SmoothScroll';
+import TweakPanel from '@/components/TweakPanel';
 
 export default function RootLayout({
   children,
@@ -26,6 +27,7 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <TweakPanel />
       </body>
     </html>
   );
