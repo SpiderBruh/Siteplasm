@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
             </div>
             <p className="font-body text-secondary text-sm leading-relaxed">
               Web development agency.<br />
-              Bacolod City, Philippines.<br />
+              Cebu City, Philippines.<br />
               Built for founders who want results.
             </p>
             <p className="font-code text-[10px] text-secondary/40 uppercase tracking-widest">

@@ -4,8 +4,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Siteplasm* — Fast, Premium Web Development',
-  description: 'We build websites that convert. Fast. Clean. Guaranteed. Based in Bacolod, Philippines. 5-day delivery, zero overhead, real ROI.',
-  keywords: 'web development, Bacolod, Philippines, agency, Next.js, React, Sanity, Supabase',
+  description: 'We build websites that convert. Fast. Clean. Guaranteed. Based in Cebu, Philippines. 5-day delivery, zero overhead, real ROI.',
+  keywords: 'web development, Cebu, Philippines, agency, Next.js, React, Sanity, Supabase',
   openGraph: {
     title: 'Siteplasm* — We Build Websites That Print Money',
     description: '47 businesses. 5-day delivery. If you don\'t see ROI in 90 days, we rebuild it free.',
@@ -32,12 +32,12 @@ export default function RootLayout({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           "name": "Siteplasm",
-          "description": "Web development agency based in Bacolod City, Philippines",
+          "description": "Web development agency based in Cebu City, Philippines",
           "url": "https://siteplasm.vercel.app",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Bacolod City",
-            "addressRegion": "Negros Occidental",
+            "addressLocality": "Cebu City",
+            "addressRegion": "Cebu",
             "addressCountry": "PH"
           }
         })}} />

@@ -93,7 +93,7 @@ export const Navigation: React.FC = () => {
             </Button>
           </div>
           <p className="font-code text-[10px] text-secondary/30 uppercase tracking-widest mt-8 text-center">
-            Siteplasm* · Bacolod City, Philippines
+            Siteplasm* · Cebu City, Philippines
           </p>
         </div>
       )}

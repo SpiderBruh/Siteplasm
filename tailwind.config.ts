@@ -53,6 +53,7 @@ export default {
         charcoal: {
           DEFAULT: 'hsl(var(--charcoal))',
         },
+        surface: 'hsl(var(--surface))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -94,7 +95,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'marquee-infinite': 'marquee 30s linear infinite',
+        'marquee-infinite': 'marquee 20s linear infinite',
       },
     },
   },

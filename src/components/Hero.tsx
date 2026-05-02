@@ -16,83 +16,129 @@ const PROOF_STATS = [
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative w-full min-h-svh flex flex-col justify-center items-center overflow-hidden pt-20">
+    <section className="relative w-full min-h-svh flex flex-col justify-center items-start overflow-hidden pt-24 pb-16">
       <HeroScene />
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="font-code text-highlight uppercase tracking-[0.4em] text-xs md:text-sm mb-6"
-        >
-          [ WEB DEVELOPMENT AGENCY · BACOLOD, PHILIPPINES ]
-        </motion.p>
+      {/* Giant floating asterisk — decorative */}
+      <motion.div
+        initial={{ opacity: 0, rotate: -20, scale: 0.8 }}
+        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+        transition={{ duration: 2, ease: 'circOut', delay: 0.3 }}
+        className="absolute right-[-2%] top-[5%] font-headline text-[30vw] md:text-[22vw] text-primary/[0.03] leading-none select-none pointer-events-none z-0"
+        style={{ lineHeight: 1 }}
+      >
+        *
+      </motion.div>
 
-        <div className="overflow-hidden">
-          <motion.h1
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.9, ease: 'circOut' }}
-            className="font-headline text-7xl md:text-[148px] leading-[0.85] text-primary mb-8"
-          >
-            WE BUILD SITES<br className="hidden md:block" />
-            THAT <span className="text-highlight italic">PRINT</span><br className="hidden md:block" />
-            MONEY.
-          </motion.h1>
-        </div>
+      {/* Vertical rule — editorial accent */}
+      <motion.div
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.2, delay: 0.4, ease: 'circOut' }}
+        className="absolute left-6 md:left-12 top-28 bottom-28 w-[1px] bg-gradient-to-b from-transparent via-highlight/30 to-transparent hidden md:block origin-top"
+      />
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="font-body text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-4 leading-relaxed"
-        >
-          Not brochures. Not pretty pictures. Revenue machines.
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          className="font-body text-secondary/60 text-base max-w-xl mx-auto mb-12 leading-relaxed"
-        >
-          If your new website doesn&apos;t generate more leads in 90 days, we rebuild it. Free. That&apos;s the deal.
-        </motion.p>
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
 
+        {/* Eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="flex flex-col md:flex-row items-center justify-center gap-4 mb-16"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center gap-4 mb-10"
         >
-          <Button
-            className="bg-highlight text-black hover:opacity-90 font-headline text-xl uppercase tracking-widest px-10 py-7 rounded-none transition-all group"
-            onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            See What We Build <ArrowRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button
-            variant="outline"
-            className="border-white/20 text-white hover:bg-white hover:text-black font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Start a Project →
-          </Button>
+          <div className="w-8 h-[1px] bg-highlight" />
+          <span className="font-code text-highlight uppercase tracking-[0.4em] text-xs">
+            Web Development Agency · Cebu, Philippines
+          </span>
         </motion.div>
 
-        {/* Proof Stats Bar */}
+        {/* Main headline — split lines for drama */}
+        <div className="overflow-hidden mb-3">
+          <motion.div
+            initial={{ y: '110%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.9, ease: 'circOut', delay: 0.1 }}
+          >
+            <h1 className="font-headline text-[15vw] md:text-[11vw] leading-[0.82] text-primary tracking-tight">
+              WE BUILD
+            </h1>
+          </motion.div>
+        </div>
+        <div className="overflow-hidden mb-3">
+          <motion.div
+            initial={{ y: '110%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.9, ease: 'circOut', delay: 0.2 }}
+          >
+            <h1 className="font-headline text-[15vw] md:text-[11vw] leading-[0.82] text-primary tracking-tight flex items-baseline gap-4 flex-wrap">
+              SITES THAT{' '}
+              <span className="italic text-highlight" style={{ fontStyle: 'italic' }}>
+                PRINT
+              </span>
+            </h1>
+          </motion.div>
+        </div>
+        <div className="overflow-hidden mb-12">
+          <motion.div
+            initial={{ y: '110%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.9, ease: 'circOut', delay: 0.3 }}
+            className="flex items-baseline gap-4 flex-wrap"
+          >
+            <h1 className="font-headline text-[15vw] md:text-[11vw] leading-[0.82] text-primary tracking-tight">
+              MONEY
+            </h1>
+            <span className="font-headline text-[15vw] md:text-[11vw] leading-[0.82] text-highlight">.</span>
+          </motion.div>
+        </div>
+
+        {/* Sub + CTA — side-by-side on desktop */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.9 }}
+          className="flex flex-col md:flex-row items-start md:items-end gap-8 md:gap-16 mb-16"
+        >
+          <div className="max-w-md">
+            <p className="font-body text-secondary text-lg leading-relaxed mb-2">
+              Not brochures. Not pretty pictures.{' '}
+              <span className="text-primary font-medium">Revenue machines.</span>
+            </p>
+            <p className="font-code text-secondary/50 text-xs leading-relaxed">
+              If your new site doesn&apos;t generate more leads in 90 days — we rebuild it free.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+            <Button
+              className="bg-highlight text-black hover:opacity-90 font-headline text-xl uppercase tracking-widest px-10 py-7 rounded-none transition-all group"
+              onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              See What We Build <ArrowRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button
+              variant="outline"
+              className="border-white/20 text-white hover:bg-white hover:text-black font-subheading uppercase tracking-widest px-10 py-7 rounded-none transition-all"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Start a Project
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* Proof strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-0 border border-border max-w-3xl mx-auto"
+          className="flex flex-wrap gap-0 border-t border-border pt-8"
         >
           {PROOF_STATS.map((stat, i) => (
             <div
               key={i}
-              className="py-6 px-4 text-center border-r border-border last:border-r-0 md:border-r"
+              className="pr-8 mr-8 border-r border-border last:border-r-0 last:mr-0 mb-4"
             >
-              <div className="font-headline text-3xl md:text-4xl text-highlight leading-none mb-1">{stat.num}</div>
+              <div className="font-headline text-2xl md:text-3xl text-highlight leading-none mb-1">{stat.num}</div>
               <div className="font-code text-[9px] text-secondary uppercase tracking-widest">{stat.label}</div>
             </div>
           ))}
