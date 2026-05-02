@@ -1,34 +1,33 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Slightly warm dark — not pure black, more like high-end editorial */
-    --background: 20 5% 4%;        /* Warm near-black */
-    --foreground: 0 0% 97%;        /* Soft white, not harsh */
-    --card: 20 5% 7%;
-    --card-foreground: 0 0% 97%;
-    --popover: 20 5% 4%;
-    --popover-foreground: 0 0% 97%;
-    --primary: 0 0% 97%;
-    --primary-foreground: 20 5% 4%;
-    --secondary: 0 0% 42%;
-    --secondary-foreground: 0 0% 97%;
-    --muted: 20 5% 9%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 14 100% 50%;          /* Electric Orange */
+    /* Editorial Brutalism (Premium Black & Gold Light Mode) */
+    --background: 60 9% 98%;       /* #FAFAF9 */
+    --foreground: 24 10% 10%;      /* #1C1917 */
+    --card: 60 9% 98%;
+    --card-foreground: 24 10% 10%;
+    --popover: 60 9% 98%;
+    --popover-foreground: 24 10% 10%;
+    --primary: 24 10% 10%;
+    --primary-foreground: 60 9% 98%;
+    --secondary: 24 10% 45%;
+    --secondary-foreground: 24 10% 10%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 24 10% 40%;
+    --accent: 43 96% 41%;          /* #CA8A04 Premium Gold */
     --accent-foreground: 0 0% 100%;
-    --highlight: 14 100% 50%;       /* Brand Highlight */
-    --charcoal: 20 5% 7%;
+    --highlight: 43 96% 41%;       /* Brand Highlight Gold */
+    --charcoal: 24 10% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 11%;
-    --input: 0 0% 11%;
-    --ring: 14 100% 50%;
-    --radius: 0rem;
-    --surface: 20 5% 7%;
+    --border: 0 0% 85%;            /* Visible grid dividers */
+    --input: 0 0% 85%;
+    --ring: 43 96% 41%;
+    --radius: 0rem;                /* Brutalist sharp edges */
+    --surface: 60 9% 98%;
   }
 }
 
@@ -44,19 +43,20 @@
 
 /* Typography system */
 .font-headline {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.04em;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .font-subheading {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .font-code {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Grain overlay — slightly more visible for editorial feel */
+/* Brutalist raw grid background lines (Optional, but gives it the architectural feel) */
 .grain-overlay {
   position: fixed;
   top: 0;
@@ -65,20 +65,19 @@
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.045;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Custom scrollbar — elegant thin orange line */
+/* Custom scrollbar — elegant thin gold line */
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--highlight) / 0.3);
-  border-radius: 10px;
+  background: hsl(var(--highlight) / 0.5);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--highlight));
@@ -93,17 +92,21 @@
   transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Section divider accent line */
+/* Brutalist strict dividing line */
 .accent-line {
   display: block;
-  width: 32px;
+  width: 100%;
   height: 1px;
-  background: hsl(var(--highlight));
+  background: hsl(var(--border));
 }
 
-/* Showcase iframe card */
+/* Hover effects */
+.showcase-card {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
 .showcase-card:hover {
-  box-shadow: 0 20px 60px rgba(255, 62, 0, 0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
 /* Animations */
@@ -117,26 +120,8 @@
   50% { transform: translateY(-8px); }
 }
 
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 62, 0, 0); }
-  50% { box-shadow: 0 0 24px 4px rgba(255, 62, 0, 0.18); }
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.cta-pulse {
-  animation: glow-pulse 3s ease-in-out infinite;
-}
-
 .float-slow {
   animation: float 6s ease-in-out infinite;
-}
-
-.spin-slow {
-  animation: spin-slow 20s linear infinite;
 }
 
 /* Elegant hover underline */
@@ -157,22 +142,12 @@
   width: 100%;
 }
 
-/* Highlight text gradient */
+/* Highlight text solid color for brutalism */
 .text-gradient {
-  background: linear-gradient(135deg, hsl(var(--highlight)) 0%, #ff7043 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Surface with subtle warm glow */
-.surface-glow {
-  background: hsl(var(--charcoal));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+  color: hsl(var(--highlight));
 }
 
 /* Premium border style */
 .border-premium {
   border: 1px solid hsl(var(--border));
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
 }

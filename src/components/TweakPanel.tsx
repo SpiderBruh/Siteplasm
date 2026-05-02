@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Settings, X, RotateCcw } from 'lucide-react';
+import { Gear, X, ArrowsCounterClockwise } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ACCENT_PRESETS = [
-  { id: 'electric-orange', val: '#FF3E00', label: 'Electric' },
+  { id: 'gold', val: '#CA8A04', label: 'Auth Gold' },
   { id: 'matrix-green', val: '#00FF41', label: 'Matrix' },
-  { id: 'cobalt', val: '#2D5BFF', label: 'Cobalt' },
-  { id: 'hot-pink', val: '#FF0055', label: 'Hyper' },
-  { id: 'white', val: '#FFFFFF', label: 'Stark' },
+  { id: 'carbon', val: '#1C1917', label: 'Carbon' },
+  { id: 'stark', val: '#FAFAF9', label: 'Stark' },
 ];
 
 const DENSITY_PRESETS = [
@@ -20,7 +19,7 @@ const DENSITY_PRESETS = [
 
 export default function TweakPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const [accent, setAccent] = useState('#FF3E00');
+  const [accent, setAccent] = useState('#CA8A04');
   const [density, setDensity] = useState('1.0');
 
   useEffect(() => {
@@ -43,7 +42,7 @@ export default function TweakPanel() {
   };
 
   const reset = () => {
-    updateAccent('#FF3E00');
+    updateAccent('#CA8A04');
     updateDensity('1.0');
   };
 
@@ -51,10 +50,10 @@ export default function TweakPanel() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 left-8 z-[100] p-3 bg-white text-black rounded-full shadow-2xl hover:scale-110 transition-transform"
-        aria-label="Open Design Tweaks"
+        className="fixed bottom-6 left-6 z-[100] p-3 bg-primary text-background border border-primary hover:bg-highlight hover:text-primary transition-colors rounded-none"
+        aria-label="Open Mechanical Tweaks"
       >
-        <Settings size={20} />
+        <Gear weight="bold" size={24} />
       </button>
 
       <AnimatePresence>
@@ -63,49 +62,53 @@ export default function TweakPanel() {
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 bottom-0 w-80 bg-black/90 backdrop-blur-xl border-r border-white/10 z-[101] p-8"
+            transition={{ type: 'tween', duration: 0.3, ease: 'easeOut' }}
+            className="fixed top-0 left-0 bottom-0 w-80 bg-background border-r border-border z-[101] flex flex-col"
           >
-            <div className="flex justify-between items-center mb-12">
-              <h2 className="font-headline text-2xl tracking-tight">DESIGN TWEAKS</h2>
-              <button onClick={() => setIsOpen(false)} className="text-white/50 hover:text-white">
-                <X size={24} />
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-border bg-surface">
+              <h2 className="font-headline font-bold text-xl tracking-wide uppercase text-primary">SYS_CTRL</h2>
+              <button onClick={() => setIsOpen(false)} className="text-secondary hover:text-primary transition-colors">
+                <X weight="bold" size={20} />
               </button>
             </div>
 
-            <div className="space-y-10">
+            <div className="flex-1 p-6 space-y-10 overflow-y-auto">
               {/* Accent Color */}
               <div>
-                <label className="font-code text-xs text-white/40 uppercase mb-4 block tracking-widest">
-                  Accent Color
+                <label className="font-code font-bold text-[10px] text-primary uppercase mb-4 block tracking-widest border-b border-border pb-2">
+                  Accent Config
                 </label>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-2 gap-0 border border-border">
                   {ACCENT_PRESETS.map((p) => (
                     <button
                       key={p.id}
                       onClick={() => updateAccent(p.val)}
-                      className={`w-full aspect-square rounded-sm transition-all ${
-                        accent === p.val ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110' : 'opacity-60 hover:opacity-100'
+                      className={`flex flex-col items-start justify-center p-3 border-r border-b border-border last:border-b-0 even:border-r-0 hover:bg-surface transition-colors ${
+                        accent === p.val ? 'bg-primary text-background' : 'text-primary'
                       }`}
-                      style={{ backgroundColor: p.val }}
-                      title={p.label}
-                    />
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-3 h-3 border border-border" style={{ backgroundColor: p.val }} />
+                        <span className="font-code font-bold text-[10px] uppercase tracking-widest">{p.label}</span>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
 
               {/* Density */}
               <div>
-                <label className="font-code text-xs text-white/40 uppercase mb-4 block tracking-widest">
-                  Layout Density
+                <label className="font-code font-bold text-[10px] text-primary uppercase mb-4 block tracking-widest border-b border-border pb-2">
+                  Grid Density
                 </label>
-                <div className="flex bg-white/5 p-1 rounded-sm">
+                <div className="flex flex-col border border-border">
                   {DENSITY_PRESETS.map((p) => (
                     <button
                       key={p.id}
                       onClick={() => updateDensity(p.val)}
-                      className={`flex-1 py-2 text-xs font-code transition-all ${
-                        density === p.val ? 'bg-white text-black' : 'text-white/60 hover:text-white'
+                      className={`py-3 px-4 text-xs font-code font-bold uppercase tracking-widest text-left border-b border-border last:border-b-0 hover:bg-surface transition-colors ${
+                        density === p.val ? 'bg-primary text-background' : 'text-primary'
                       }`}
                     >
                       {p.label}
@@ -113,22 +116,23 @@ export default function TweakPanel() {
                   ))}
                 </div>
               </div>
-
-              {/* Reset */}
-              <button
-                onClick={reset}
-                className="flex items-center gap-2 text-xs font-code text-white/40 hover:text-white transition-colors mt-auto"
-              >
-                <RotateCcw size={12} />
-                RESET TO BRAND DEFAULT
-              </button>
             </div>
 
-            <div className="absolute bottom-8 left-8 right-8">
-              <p className="text-[10px] font-code text-white/20 leading-relaxed">
-                Siteplasm* Design Engine v1.0<br />
-                Powered by Open Design Skills
-              </p>
+            {/* Footer / Reset */}
+            <div className="p-6 border-t border-border bg-surface">
+              <button
+                onClick={reset}
+                className="w-full flex items-center justify-center gap-2 py-4 font-code font-bold text-[10px] text-background bg-primary hover:bg-highlight hover:text-primary transition-colors uppercase tracking-widest"
+              >
+                <ArrowsCounterClockwise weight="bold" size={14} />
+                Restore Default
+              </button>
+              <div className="mt-6 text-center">
+                <p className="text-[9px] font-code text-secondary leading-relaxed uppercase tracking-widest">
+                  Siteplasm* Ctrl v2.0<br />
+                  Strict Auth Protocol
+                </p>
+              </div>
             </div>
           </motion.div>
         )}

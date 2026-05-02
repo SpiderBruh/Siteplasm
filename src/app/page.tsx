@@ -12,6 +12,7 @@ import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { CustomCursor } from '@/components/CustomCursor';
 import { Toaster } from '@/components/ui/toaster';
+import SiteplasmsChat from '@/ai/flows/SiteplasmsChat';
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
 
       <Footer />
       <Toaster />
+      <SiteplasmsChat />
     </main>
   );
 }

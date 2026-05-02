@@ -10,7 +10,7 @@ const dummyResend = {
   },
 } as any;
 
-export const resend = resendApiKey ? new Resend(resendApiKey) : dummyResend;
+const resend = resendApiKey ? new Resend(resendApiKey) : dummyResend;
 
 export async function sendInquiryNotification(data: {
   name: string;

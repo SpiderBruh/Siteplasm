@@ -1,9 +1,8 @@
-
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ArrowSquareOut } from '@phosphor-icons/react';
 
 const SHOWCASES = [
   {
@@ -13,7 +12,7 @@ const SHOWCASES = [
     tag: 'Marketing',
     tech: ['React', 'Next.js', 'Framer Motion'],
     src: '/showcase/saas-landing.html',
-    accent: '#FF3E00',
+    accent: '#CA8A04', // Using the Gold accent for all to keep palette consistent
   },
   {
     id: 'dashboard',
@@ -22,7 +21,7 @@ const SHOWCASES = [
     tag: 'Web App',
     tech: ['Next.js', 'Supabase', 'Recharts'],
     src: '/showcase/dashboard.html',
-    accent: '#2D5BFF',
+    accent: '#CA8A04',
   },
   {
     id: 'mobile-app',
@@ -31,7 +30,7 @@ const SHOWCASES = [
     tag: 'Mobile',
     tech: ['React Native', 'Expo', 'Firebase'],
     src: '/showcase/mobile-app.html',
-    accent: '#00D26A',
+    accent: '#CA8A04',
   },
   {
     id: 'ecommerce',
@@ -40,7 +39,7 @@ const SHOWCASES = [
     tag: 'E-Commerce',
     tech: ['Next.js', 'Shopify', 'Stripe'],
     src: '/showcase/ecommerce.html',
-    accent: '#FF3E00',
+    accent: '#CA8A04',
   },
   {
     id: 'pricing-demo',
@@ -49,7 +48,7 @@ const SHOWCASES = [
     tag: 'Landing Page',
     tech: ['React', 'Tailwind', 'Sanity'],
     src: '/showcase/pricing-demo.html',
-    accent: '#FFD60A',
+    accent: '#CA8A04',
   },
   {
     id: 'kanban-board',
@@ -58,41 +57,42 @@ const SHOWCASES = [
     tag: 'Web App',
     tech: ['Next.js', 'Supabase', 'DnD'],
     src: '/showcase/kanban-board.html',
-    accent: '#2D5BFF',
+    accent: '#CA8A04',
   },
 ];
 
 export const Work: React.FC = () => {
   return (
-    <section id="work" className="py-24 md:py-48 container mx-auto px-6">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-6 gap-8">
+    <section id="work" className="py-24 md:py-48 container mx-auto px-6 md:px-[10%] border-b border-border">
+      <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
         <div>
-          <p className="font-code text-highlight uppercase tracking-[0.3em] text-sm mb-4">
-            [ LIVE SHOWCASES — NOT MOCKUPS ]
+          <p className="font-code font-bold text-highlight uppercase tracking-widest text-sm mb-6">
+            Live Showcases — Not Mockups
           </p>
-          <h2 className="font-headline text-6xl md:text-9xl text-primary leading-none">
+          <h2 className="font-headline font-bold text-6xl md:text-9xl text-primary leading-none uppercase tracking-tighter">
             WHAT WE BUILD
           </h2>
         </div>
-        <p className="font-body text-secondary text-right max-w-sm leading-relaxed">
+        <p className="font-body text-secondary font-medium text-right max-w-sm leading-relaxed pb-4">
           Every card below is a <strong className="text-primary">live, interactive demo</strong> — not a screenshot. Click inside them. This is exactly what your clients get.
         </p>
       </div>
 
       <div className="w-full h-[1px] bg-border mb-16" />
 
-      <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+      {/* Brutalist Masonry-like Grid */}
+      <div className="grid md:grid-cols-2 gap-0 border border-border bg-border">
         {SHOWCASES.map((project, i) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.7 }}
-            className="group"
+            transition={{ delay: i * 0.05, duration: 0.1 }}
+            className="group bg-background border border-border p-6 md:p-10 flex flex-col justify-between hover:bg-surface transition-colors"
           >
             {/* Live iframe preview */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-surface border border-border group-hover:border-highlight transition-colors duration-500 mb-5">
+            <div className="relative aspect-[16/10] overflow-hidden bg-background border border-border mb-8">
               <iframe
                 src={project.src}
                 className="w-full h-full pointer-events-none"
@@ -106,44 +106,41 @@ export const Work: React.FC = () => {
                 href={project.src}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-background/60 backdrop-blur-sm"
+                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 bg-primary/90"
               >
-                <span className="font-subheading text-primary border border-primary py-3 px-6 flex items-center gap-2 hover:bg-primary hover:text-background transition-colors">
-                  Open Full Preview <ExternalLink className="w-4 h-4" />
+                <span className="font-headline font-bold text-background border border-background py-4 px-8 flex items-center gap-3 hover:bg-background hover:text-primary transition-colors text-lg uppercase tracking-widest">
+                  Open Full Preview <ArrowSquareOut weight="bold" className="w-6 h-6" />
                 </span>
               </a>
-              {/* Accent corner */}
-              <div
-                className="absolute top-0 left-0 w-1 h-full"
-                style={{ backgroundColor: project.accent }}
-              />
             </div>
 
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="font-code text-xs text-highlight mb-2">
-                  {project.tech.map(t => `[ ${t} ]`).join(' ')}
-                </p>
-                <h3 className="font-subheading text-xl md:text-2xl text-primary font-semibold mb-1">{project.title}</h3>
-                <p className="font-body text-sm text-secondary leading-relaxed max-w-xs">{project.desc}</p>
+            <div className="flex flex-col justify-between items-start flex-grow">
+              <div className="w-full">
+                <div className="flex justify-between items-center w-full mb-4">
+                  <h3 className="font-headline font-bold text-2xl md:text-3xl text-primary uppercase tracking-wide">{project.title}</h3>
+                  <span className="font-code font-bold text-[10px] text-primary border border-border bg-surface px-3 py-1.5 uppercase tracking-widest flex-shrink-0 ml-4">
+                    {project.tag}
+                  </span>
+                </div>
+                <p className="font-body font-medium text-base text-secondary leading-relaxed mb-6">{project.desc}</p>
               </div>
-              <span className="font-code text-[9px] text-secondary border border-border px-2 py-1 uppercase tracking-wider flex-shrink-0 ml-4">
-                {project.tag}
-              </span>
+              <p className="font-code font-bold text-xs text-highlight uppercase tracking-widest border-t border-border pt-4 w-full">
+                {project.tech.map(t => `[ ${t} ]`).join(' ')}
+              </p>
             </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="mt-20 text-center border border-border p-8 md:p-12">
-        <p className="font-code text-xs text-secondary uppercase tracking-widest mb-4">[ YOUR PROJECT GOES HERE ]</p>
-        <h3 className="font-headline text-4xl md:text-6xl text-primary mb-4">READY TO BUILD YOURS?</h3>
-        <p className="font-body text-secondary max-w-md mx-auto mb-8">These demos were built in days. Yours will be live in 5. Let&apos;s talk.</p>
+      <div className="mt-24 text-center border-2 border-primary bg-highlight p-12 md:p-24 relative overflow-hidden group">
+        <p className="font-code font-bold text-primary uppercase tracking-widest mb-6 relative z-10">[ YOUR PROJECT GOES HERE ]</p>
+        <h3 className="font-headline font-bold text-5xl md:text-8xl text-primary mb-8 tracking-tighter uppercase relative z-10">READY TO BUILD YOURS?</h3>
+        <p className="font-body font-bold text-xl text-primary/80 max-w-lg mx-auto mb-10 relative z-10">These demos were built in days. Yours will be live in 5. Let's talk.</p>
         <button
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-          className="bg-highlight text-black font-headline text-xl uppercase tracking-widest px-12 py-5 hover:opacity-90 transition-opacity"
+          className="bg-primary text-background font-headline font-bold text-2xl uppercase tracking-widest px-12 py-6 hover:scale-[0.98] transition-transform relative z-10 active:scale-[0.95]"
         >
-          Start Your Project →
+          Start Your Project
         </button>
       </div>
     </section>

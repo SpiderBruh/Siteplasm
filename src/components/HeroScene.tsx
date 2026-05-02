@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useRef } from 'react';
@@ -20,20 +19,39 @@ export const HeroScene: React.FC = () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     containerRef.current.appendChild(renderer.domElement);
 
-    // Geometry
-    const geometry = new THREE.IcosahedronGeometry(2, 0);
-    const wireframe = new THREE.WireframeGeometry(geometry);
+    // Geometry - Brutalist 3D Asterisk
+    const mesh = new THREE.Group();
     const material = new THREE.LineBasicMaterial({ 
-      color: 0xF5F0E8,
+      color: 0x1C1917, // Premium Black
       transparent: true,
-      opacity: 0.15 
+      opacity: 0.3 
     });
-    const mesh = new THREE.LineSegments(wireframe, material);
+
+    // Structural columns to form the asterisk
+    const armGeo = new THREE.CylinderGeometry(0.12, 0.12, 5, 6);
+    const wireframe = new THREE.WireframeGeometry(armGeo);
+    
+    const rotations = [
+      [0, 0, 0],
+      [Math.PI / 2, 0, 0],
+      [0, 0, Math.PI / 2],
+      [Math.PI / 4, Math.PI / 4, 0],
+      [-Math.PI / 4, Math.PI / 4, 0],
+      [0, Math.PI / 4, Math.PI / 4],
+      [0, -Math.PI / 4, Math.PI / 4],
+    ];
+
+    rotations.forEach(rot => {
+      const arm = new THREE.LineSegments(wireframe, material);
+      arm.rotation.set(rot[0], rot[1], rot[2]);
+      mesh.add(arm);
+    });
+
     scene.add(mesh);
 
     // Particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 300;
+    const particlesCount = 200;
     const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
@@ -41,21 +59,17 @@ export const HeroScene: React.FC = () => {
     }
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.015,
-      color: 0xC8B89A,
+      size: 0.02,
+      color: 0xCA8A04, // Premium Gold
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.6,
     });
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
     // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xF5F0E8, 2);
-    pointLight.position.set(2, 3, 4);
-    scene.add(pointLight);
 
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -99,5 +113,5 @@ export const HeroScene: React.FC = () => {
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute inset-0 z-0 pointer-events-none opacity-40" />;
+  return <div ref={containerRef} className="absolute inset-0 z-0 pointer-events-none opacity-60" />;
 };

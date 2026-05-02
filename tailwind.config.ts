@@ -11,9 +11,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['DM Sans', 'sans-serif'],
-        headline: ['Bebas Neue', 'sans-serif'],
-        subheading: ['Syne', 'sans-serif'],
+        body: ['Plus Jakarta Sans', 'sans-serif'],
+        headline: ['Plus Jakarta Sans', 'sans-serif'],
+        subheading: ['Plus Jakarta Sans', 'sans-serif'],
         code: ['JetBrains Mono', 'monospace'],
       },
       colors: {
