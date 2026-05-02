@@ -3,15 +3,33 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://siteplasm.vercel.app'),
   title: 'Siteplasm* — Fast, Premium Web Development',
   description: 'We build websites that convert. Fast. Clean. Guaranteed. Based in Cebu, Philippines. 5-day delivery, zero overhead, real ROI.',
   keywords: 'web development, Cebu, Philippines, agency, Next.js, React, Sanity, Supabase',
+  icons: {
+    icon: '/siteplasm.svg',
+  },
   openGraph: {
     title: 'Siteplasm* — We Build Websites That Print Money',
     description: '47 businesses. 5-day delivery. If you don\'t see ROI in 90 days, we rebuild it free.',
     type: 'website',
     locale: 'en_US',
     url: 'https://siteplasm.vercel.app',
+    images: [
+      {
+        url: '/preview.JPG',
+        width: 1200,
+        height: 630,
+        alt: 'Siteplasm* Preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Siteplasm* — We Build Websites That Print Money',
+    description: '47 businesses. 5-day delivery. If you don\'t see ROI in 90 days, we rebuild it free.',
+    images: ['/preview.JPG'],
   },
 };
 
