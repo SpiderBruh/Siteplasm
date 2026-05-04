@@ -168,7 +168,7 @@ function CezTrigger({
             window.removeEventListener('scroll', handleScroll);
             clearInterval(blinkInterval);
         };
-    }, []);
+    }, [introStage, isOpen, saying]);
 
     return (
         <div className="relative">
