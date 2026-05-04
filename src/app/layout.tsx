@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from '@/components/SmoothScroll';
+import SiteplasmsChat from '@/ai/flows/SiteplasmsChat';
 
 export default function RootLayout({
   children,
@@ -68,6 +69,7 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+        <SiteplasmsChat />
         <Analytics />
         <SpeedInsights />
       </body>

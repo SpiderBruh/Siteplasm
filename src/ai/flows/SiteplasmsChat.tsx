@@ -74,7 +74,7 @@ function CezTrigger({
 }: { 
     isOpen: boolean; 
     onClick: () => void;
-    introStage?: 'loading' | 'wink' | 'flying' | 'done'
+    introStage?: 'loading' | 'wink' | 'playing' | 'flying' | 'done'
 }) {
     const eyeContainerRef = useRef<HTMLDivElement>(null);
     const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
@@ -87,8 +87,20 @@ function CezTrigger({
             setSaying(null);
             return;
         }
+
+        // Special intro sayings
+        if (introStage === 'loading') { setSaying("Initializing..."); return; }
+        if (introStage === 'wink') { setSaying("Systems Online! ;)"); return; }
+        if (introStage === 'playing') { setSaying("VROOOOOM!"); return; }
+        if (introStage === 'flying') { setSaying("Docking sequence..."); return; }
+        if (introStage === 'done' && saying === "Docking sequence...") { 
+            setSaying("Ready to help!"); 
+            setTimeout(() => setSaying(null), 2000);
+            return; 
+        }
         
         const interval = setInterval(() => {
+            if (introStage !== 'done') return;
             // 50% chance to say something
             if (Math.random() > 0.5) { 
                 const randomSaying = IDLE_SAYINGS[Math.floor(Math.random() * IDLE_SAYINGS.length)];
@@ -100,11 +112,11 @@ function CezTrigger({
         }, 10000);
         
         return () => clearInterval(interval);
-    }, [isOpen]);
+    }, [isOpen, introStage]);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            if (!eyeContainerRef.current) return;
+            if (!eyeContainerRef.current || introStage !== 'done') return;
             const rect = eyeContainerRef.current.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -170,20 +182,20 @@ function CezTrigger({
                 </div>
             )}
             <button 
-                className={`sp-trigger float-slow ${isOpen ? 'active' : ''} ${introStage === 'flying' ? 'is-flying' : ''}`} 
+                className={`sp-trigger float-slow ${isOpen ? 'active' : ''} ${(introStage === 'flying' || introStage === 'playing') ? 'is-flying' : ''}`} 
                 onClick={onClick} 
                 aria-label="Toggle SYS_CTRL Chat"
             >
-                {/* Jetpacks */}
-                <div className="cez-jetpack left">
-                    <div className="cez-booster" />
-                </div>
-                <div className="cez-jetpack right">
-                    <div className="cez-booster" />
-                </div>
-
                 <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-highlight" />
                 <div className="cez-face" ref={eyeContainerRef}>
+                    {/* Jetpacks at the bottom */}
+                    <div className="cez-jetpack left">
+                        <div className="cez-booster" />
+                    </div>
+                    <div className="cez-jetpack right">
+                        <div className="cez-booster" />
+                    </div>
+
                     <div 
                         className="cez-eyes" 
                         style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
@@ -206,17 +218,19 @@ function CezTrigger({
 
 export default function SiteplasmsChat() {
     const [isOpen, setIsOpen] = useState(false);
-    const [introStage, setIntroStage] = useState<'loading' | 'wink' | 'flying' | 'done'>('loading');
+    const [introStage, setIntroStage] = useState<'loading' | 'wink' | 'playing' | 'flying' | 'done'>('loading');
 
     // Intro sequence
     useEffect(() => {
         const timer1 = setTimeout(() => setIntroStage('wink'), 1200);
-        const timer2 = setTimeout(() => setIntroStage('flying'), 2200);
-        const timer3 = setTimeout(() => setIntroStage('done'), 3500);
+        const timer2 = setTimeout(() => setIntroStage('playing'), 2200);
+        const timer3 = setTimeout(() => setIntroStage('flying'), 4200);
+        const timer4 = setTimeout(() => setIntroStage('done'), 5500);
         return () => {
             clearTimeout(timer1);
             clearTimeout(timer2);
             clearTimeout(timer3);
+            clearTimeout(timer4);
         };
     }, []);
     const [messages, setMessages] = useState<Message[]>([
@@ -303,22 +317,44 @@ export default function SiteplasmsChat() {
           position: fixed;
           bottom: 32px;
           right: 32px;
-          z-index: 9999;
+          z-index: 10001;
           transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
           pointer-events: auto;
         }
 
         .sp-chat-bubble.is-intro {
-          bottom: 50vh;
-          right: 50vw;
+          bottom: 50%;
+          right: 50%;
           transform: translate(50%, 50%) scale(2.5);
           pointer-events: none;
         }
+
+        .sp-chat-bubble.is-playing {
+          animation: cez-airplane 2s ease-in-out forwards;
+          pointer-events: none;
+        }
         
-        .sp-chat-bubble.is-wink {
-          bottom: 50vh;
-          right: 50vw;
-          transform: translate(50%, 50%) scale(2.8);
+        @keyframes cez-airplane {
+          0% { bottom: 50%; right: 50%; transform: translate(50%, 50%) scale(2.5) rotate(0deg); }
+          20% { bottom: 60%; right: 70%; transform: translate(50%, 50%) scale(1.8) rotate(-15deg); }
+          40% { bottom: 40%; right: 30%; transform: translate(50%, 50%) scale(2.2) rotate(20deg); }
+          60% { bottom: 70%; right: 40%; transform: translate(50%, 50%) scale(1.6) rotate(-10deg); }
+          80% { bottom: 30%; right: 60%; transform: translate(50%, 50%) scale(2.0) rotate(5deg); }
+          100% { bottom: 50%; right: 50%; transform: translate(50%, 50%) scale(2.5) rotate(0deg); }
+        }
+        
+        @media (max-width: 480px) {
+          .sp-chat-bubble.is-intro {
+            transform: translate(50%, 50%) scale(1.5);
+          }
+          .sp-chat-bubble.is-wink {
+            transform: translate(50%, 50%) scale(1.8);
+          }
+          @keyframes cez-airplane {
+            0% { bottom: 50%; right: 50%; transform: translate(50%, 50%) scale(1.5) rotate(0deg); }
+            50% { bottom: 60%; right: 40%; transform: translate(50%, 50%) scale(1.2) rotate(-10deg); }
+            100% { bottom: 50%; right: 50%; transform: translate(50%, 50%) scale(1.5) rotate(0deg); }
+          }
         }
 
         /* ── Robot Trigger ── */
@@ -389,24 +425,24 @@ export default function SiteplasmsChat() {
 
         .cez-jetpack {
           position: absolute;
-          width: 10px;
-          height: 24px;
+          width: 8px;
+          height: 18px;
           background: hsl(var(--foreground));
           border: 1px solid hsl(var(--background));
-          top: 10px;
+          bottom: -10px;
           z-index: 1;
           transition: all 0.3s ease;
         }
-        .cez-jetpack.left { left: -8px; border-radius: 4px 0 0 4px; }
-        .cez-jetpack.right { right: -8px; border-radius: 0 4px 4px 0; }
+        .cez-jetpack.left { left: 8px; border-radius: 0 0 4px 4px; }
+        .cez-jetpack.right { right: 8px; border-radius: 0 0 4px 4px; }
 
         .cez-booster {
           position: absolute;
-          bottom: -10px;
+          bottom: -12px;
           left: 50%;
           transform: translateX(-50%);
-          width: 6px;
-          height: 12px;
+          width: 5px;
+          height: 10px;
           background: hsl(var(--highlight));
           filter: blur(1px);
           opacity: 0;
@@ -706,12 +742,12 @@ export default function SiteplasmsChat() {
           .sp-window.hidden {
              transform: translateY(100%);
           }
-          .sp-chat-bubble { right: 20px; bottom: 20px; }
-          .sp-trigger { width: 56px; height: 56px; }
+          .sp-chat-bubble { right: 16px; bottom: 16px; }
+          .sp-trigger { width: 52px; height: 52px; }
         }
       `}</style>
 
-            <div className={`sp-chat sp-chat-bubble ${introStage !== 'done' ? 'is-intro' : ''} ${introStage === 'wink' ? 'is-wink' : ''}`}>
+            <div className={`sp-chat sp-chat-bubble ${introStage !== 'done' ? 'is-intro' : ''} ${introStage === 'wink' ? 'is-wink' : ''} ${introStage === 'playing' ? 'is-playing' : ''}`}>
                 <CezTrigger introStage={introStage} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
                 {/* ── Chat Window ── */}
