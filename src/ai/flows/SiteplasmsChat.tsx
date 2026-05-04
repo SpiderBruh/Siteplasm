@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { aiProjectInquiryAssistant } from '@/ai/flows/ai-project-inquiry-assistant';
+import { sendInquiryNotification } from '@/lib/resend';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -11,7 +12,6 @@ type Message = {
     suggestedActions?: string[];
 };
 
-// ─── Real API call ──────────────────
 async function sendMessage(
     query: string,
     history: { role: 'user' | 'assistant'; content: string }[]
@@ -20,11 +20,7 @@ async function sendMessage(
         query,
         conversationHistory: history,
     });
-    
-    return {
-        answer: result.answer,
-        suggestedActions: result.suggestedActions,
-    };
+    return result;
 }
 
 // ─── Typing Indicator ────────────────────────────────────────────────────────
@@ -187,13 +183,16 @@ function CezTrigger({
                 aria-label="Toggle SYS_CTRL Chat"
             >
                 <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-highlight" />
+                <div className="cez-sonic-boom" />
                 <div className="cez-face" ref={eyeContainerRef}>
-                    {/* Jetpacks at the bottom */}
+                    {/* Jetpacks at the bottom edges */}
                     <div className="cez-jetpack left">
                         <div className="cez-booster" />
+                        <div className="cez-particle" />
                     </div>
                     <div className="cez-jetpack right">
                         <div className="cez-booster" />
+                        <div className="cez-particle" />
                     </div>
 
                     <div 
@@ -247,6 +246,7 @@ export default function SiteplasmsChat() {
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const lastCapturedEmailRef = useRef<string | null>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -285,6 +285,19 @@ export default function SiteplasmsChat() {
                     suggestedActions: result.suggestedActions,
                 },
             ]);
+
+            // Handle lead capture
+            if (result.extractedLead?.email && result.extractedLead.email !== lastCapturedEmailRef.current) {
+                lastCapturedEmailRef.current = result.extractedLead.email;
+                
+                // Fire and forget notification
+                sendInquiryNotification({
+                    name: result.extractedLead.name || 'Anonymous',
+                    email: result.extractedLead.email,
+                    message: result.extractedLead.projectDetails || 'No details provided.',
+                    projectType: 'AI CHAT LEAD'
+                });
+            }
         } catch (err) {
             console.error("CEZ_ERROR:", err);
             setMessages((prev) => [
@@ -332,6 +345,15 @@ export default function SiteplasmsChat() {
         .sp-chat-bubble.is-playing {
           animation: cez-airplane 2s ease-in-out forwards;
           pointer-events: none;
+        }
+
+        .sp-chat-bubble.is-playing .cez-sonic-boom {
+          animation: cez-boom 0.8s ease-out forwards;
+        }
+        
+        @keyframes cez-boom {
+          0% { width: 0; height: 0; opacity: 1; border-width: 20px; }
+          100% { width: 400px; height: 400px; opacity: 0; border-width: 1px; }
         }
         
         @keyframes cez-airplane {
@@ -425,37 +447,81 @@ export default function SiteplasmsChat() {
 
         .cez-jetpack {
           position: absolute;
-          width: 8px;
-          height: 18px;
+          width: 10px;
+          height: 16px;
           background: hsl(var(--foreground));
-          border: 1px solid hsl(var(--background));
-          bottom: -10px;
+          border: 1.5px solid hsl(var(--highlight));
+          bottom: -12px;
           z-index: 1;
           transition: all 0.3s ease;
+          box-shadow: 0 0 10px hsl(var(--highlight) / 0.3);
         }
-        .cez-jetpack.left { left: 8px; border-radius: 0 0 4px 4px; }
-        .cez-jetpack.right { right: 8px; border-radius: 0 0 4px 4px; }
+        .cez-jetpack.left { left: 4px; border-radius: 2px 2px 4px 4px; }
+        .cez-jetpack.right { right: 4px; border-radius: 2px 2px 4px 4px; }
 
         .cez-booster {
           position: absolute;
-          bottom: -12px;
+          bottom: -14px;
           left: 50%;
           transform: translateX(-50%);
           width: 5px;
           height: 10px;
           background: hsl(var(--highlight));
-          filter: blur(1px);
-          opacity: 0;
-          transition: opacity 0.3s ease;
+          filter: blur(1.5px);
+          opacity: 0.6;
+          box-shadow: 0 0 12px hsl(var(--highlight));
+          animation: cez-flame-idle 0.2s infinite alternate;
+          transition: all 0.3s ease;
         }
         .is-flying .cez-booster {
           opacity: 1;
-          animation: cez-flame 0.1s infinite alternate;
+          height: 24px;
+          filter: blur(2px);
+          animation: cez-flame-active 0.05s infinite alternate;
+          box-shadow: 0 0 20px hsl(var(--highlight)), 0 0 40px hsl(var(--highlight) / 0.4);
         }
 
-        @keyframes cez-flame {
-          from { height: 8px; opacity: 0.8; transform: translateX(-50%) scaleX(1); }
-          to { height: 16px; opacity: 1; transform: translateX(-50%) scaleX(1.3); }
+        .cez-particle {
+          position: absolute;
+          bottom: -20px;
+          left: 50%;
+          width: 4px;
+          height: 4px;
+          background: hsl(var(--highlight));
+          border-radius: 50%;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .is-flying .cez-particle {
+          animation: cez-sparks 0.4s linear infinite;
+        }
+
+        @keyframes cez-sparks {
+          0% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+          100% { transform: translate(-50%, 20px) scale(0); opacity: 0; }
+        }
+
+        @keyframes cez-flame-idle {
+          from { height: 8px; opacity: 0.5; }
+          to { height: 12px; opacity: 0.7; }
+        }
+        @keyframes cez-flame-active {
+          from { height: 20px; transform: translateX(-50%) scaleX(1); }
+          to { height: 32px; transform: translateX(-50%) scaleX(1.4); }
+        }
+
+        .cez-sonic-boom {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border: 2px solid hsl(var(--highlight));
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+          pointer-events: none;
+          z-index: -1;
         }
         
         .cez-eyes {

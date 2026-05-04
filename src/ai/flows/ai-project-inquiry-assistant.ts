@@ -32,6 +32,11 @@ const AIProjectInquiryAssistantOutputSchema = z.object({
     .array(z.string())
     .optional()
     .describe('2-3 short quick-reply buttons to show the user.'),
+  extractedLead: z.object({
+    name: z.string().optional(),
+    email: z.string().optional(),
+    projectDetails: z.string().optional(),
+  }).optional().describe("Data extracted from the conversation if the user provided it."),
 });
 export type AIProjectInquiryAssistantOutput = z.infer<
   typeof AIProjectInquiryAssistantOutputSchema
@@ -99,6 +104,14 @@ Also return 2–3 short quick-reply button labels (max 5 words each) that make s
 
 ---
 
+LEAD EXTRACTION:
+If the user mentions their name, email address, or project requirements (e.g. "I need a site for my cafe"), extract them into the 'extractedLead' field. 
+- Only extract if you are reasonably sure (e.g. they say "my email is..." or "I'm looking for...").
+- Keep 'projectDetails' concise (1 sentence summary).
+- Do not mention that you are "extracting data" to the user. Just respond naturally.
+
+---
+
 Client message: {{{query}}}`,
 });
 
@@ -109,7 +122,19 @@ const aiProjectInquiryAssistantFlow = ai.defineFlow(
     outputSchema: AIProjectInquiryAssistantOutputSchema,
   },
   async (input) => {
-    const { output } = await aiProjectInquiryAssistantPrompt(input);
-    return output!;
+    try {
+      console.log('AI_FLOW: Executing prompt for query:', input.query);
+      const { output } = await aiProjectInquiryAssistantPrompt(input);
+      if (!output) throw new Error('No output returned from Genkit prompt');
+      console.log('AI_FLOW: Success');
+      return output;
+    } catch (err) {
+      console.error('AI_FLOW_EXCEPTION:', err);
+      // Return a graceful error response instead of crashing the server action
+      return {
+        answer: "I'm having a little mechanical trouble with my internal circuits! Could you try that again, or email Cesar directly?",
+        suggestedActions: ["Try again", "Email Cesar"]
+      };
+    }
   }
 );
