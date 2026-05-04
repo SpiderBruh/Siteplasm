@@ -67,7 +67,15 @@ const SCROLL_SAYINGS = [
     "Wheee!"
 ];
 
-function CezTrigger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
+function CezTrigger({ 
+    isOpen, 
+    onClick,
+    introStage = 'done'
+}: { 
+    isOpen: boolean; 
+    onClick: () => void;
+    introStage?: 'loading' | 'wink' | 'flying' | 'done'
+}) {
     const eyeContainerRef = useRef<HTMLDivElement>(null);
     const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
     const [isBlinking, setIsBlinking] = useState(false);
@@ -162,17 +170,25 @@ function CezTrigger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void 
                 </div>
             )}
             <button 
-                className={`sp-trigger float-slow ${isOpen ? 'active' : ''}`} 
+                className={`sp-trigger float-slow ${isOpen ? 'active' : ''} ${introStage === 'flying' ? 'is-flying' : ''}`} 
                 onClick={onClick} 
                 aria-label="Toggle SYS_CTRL Chat"
             >
+                {/* Jetpacks */}
+                <div className="cez-jetpack left">
+                    <div className="cez-booster" />
+                </div>
+                <div className="cez-jetpack right">
+                    <div className="cez-booster" />
+                </div>
+
                 <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-highlight" />
                 <div className="cez-face" ref={eyeContainerRef}>
                     <div 
                         className="cez-eyes" 
                         style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
                     >
-                        <div className={`cez-eye ${isBlinking ? 'blink' : ''}`} />
+                        <div className={`cez-eye ${isBlinking || (introStage === 'wink') ? 'blink' : ''}`} />
                         <div className={`cez-eye ${isBlinking ? 'blink' : ''}`} />
                     </div>
                     {isOpen ? (
@@ -190,6 +206,19 @@ function CezTrigger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void 
 
 export default function SiteplasmsChat() {
     const [isOpen, setIsOpen] = useState(false);
+    const [introStage, setIntroStage] = useState<'loading' | 'wink' | 'flying' | 'done'>('loading');
+
+    // Intro sequence
+    useEffect(() => {
+        const timer1 = setTimeout(() => setIntroStage('wink'), 1200);
+        const timer2 = setTimeout(() => setIntroStage('flying'), 2200);
+        const timer3 = setTimeout(() => setIntroStage('done'), 3500);
+        return () => {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            clearTimeout(timer3);
+        };
+    }, []);
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'assistant',
@@ -227,8 +256,9 @@ export default function SiteplasmsChat() {
         setInput('');
         setIsLoading(true);
 
+        // Keep only the last 10 messages for context to prevent server timeouts and payload limits
         const history = updatedMessages
-            .slice(0, -1)
+            .slice(-11, -1) // -11 to include up to 10 previous messages, excluding the brand new one
             .map((m) => ({ role: m.role, content: m.content }));
 
         try {
@@ -241,13 +271,14 @@ export default function SiteplasmsChat() {
                     suggestedActions: result.suggestedActions,
                 },
             ]);
-        } catch {
+        } catch (err) {
+            console.error("CEZ_ERROR:", err);
             setMessages((prev) => [
                 ...prev,
                 {
                     role: 'assistant',
                     content:
-                        "ERR_CONNECTION: System failure. Email cesar@siteplasm.com directly to proceed.",
+                        "ERR_CONNECTION: System failure. Check console for details or email cesar@siteplasm.com.",
                 },
             ]);
         } finally {
@@ -273,6 +304,21 @@ export default function SiteplasmsChat() {
           bottom: 32px;
           right: 32px;
           z-index: 9999;
+          transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          pointer-events: auto;
+        }
+
+        .sp-chat-bubble.is-intro {
+          bottom: 50vh;
+          right: 50vw;
+          transform: translate(50%, 50%) scale(2.5);
+          pointer-events: none;
+        }
+        
+        .sp-chat-bubble.is-wink {
+          bottom: 50vh;
+          right: 50vw;
+          transform: translate(50%, 50%) scale(2.8);
         }
 
         /* ── Robot Trigger ── */
@@ -338,6 +384,42 @@ export default function SiteplasmsChat() {
           align-items: center;
           padding-top: 8px;
           overflow: hidden;
+          z-index: 2;
+        }
+
+        .cez-jetpack {
+          position: absolute;
+          width: 10px;
+          height: 24px;
+          background: hsl(var(--foreground));
+          border: 1px solid hsl(var(--background));
+          top: 10px;
+          z-index: 1;
+          transition: all 0.3s ease;
+        }
+        .cez-jetpack.left { left: -8px; border-radius: 4px 0 0 4px; }
+        .cez-jetpack.right { right: -8px; border-radius: 0 4px 4px 0; }
+
+        .cez-booster {
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 6px;
+          height: 12px;
+          background: hsl(var(--highlight));
+          filter: blur(1px);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .is-flying .cez-booster {
+          opacity: 1;
+          animation: cez-flame 0.1s infinite alternate;
+        }
+
+        @keyframes cez-flame {
+          from { height: 8px; opacity: 0.8; transform: translateX(-50%) scaleX(1); }
+          to { height: 16px; opacity: 1; transform: translateX(-50%) scaleX(1.3); }
         }
         
         .cez-eyes {
@@ -378,7 +460,8 @@ export default function SiteplasmsChat() {
           bottom: 110px;
           right: 32px;
           width: 380px;
-          height: 560px;
+          height: 600px;
+          max-height: calc(100vh - 140px);
           z-index: 9999;
           background: hsl(var(--background));
           border: 2px solid hsl(var(--foreground));
@@ -606,14 +689,30 @@ export default function SiteplasmsChat() {
         }
         .sp-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        @media (max-width: 420px) {
-          .sp-window { width: calc(100vw - 32px); right: 16px; bottom: 100px; }
-          .sp-chat-bubble { right: 16px; bottom: 16px; }
+        @media (max-width: 480px) {
+          .sp-window { 
+            width: 100vw; 
+            height: 100%;
+            max-height: 100%;
+            right: 0; 
+            bottom: 0; 
+            border: none;
+            box-shadow: none;
+            transform-origin: bottom center;
+          }
+          .sp-window.visible {
+             transform: translateY(0);
+          }
+          .sp-window.hidden {
+             transform: translateY(100%);
+          }
+          .sp-chat-bubble { right: 20px; bottom: 20px; }
+          .sp-trigger { width: 56px; height: 56px; }
         }
       `}</style>
 
-            <div className="sp-chat sp-chat-bubble">
-                <CezTrigger isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+            <div className={`sp-chat sp-chat-bubble ${introStage !== 'done' ? 'is-intro' : ''} ${introStage === 'wink' ? 'is-wink' : ''}`}>
+                <CezTrigger introStage={introStage} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
                 {/* ── Chat Window ── */}
                 <div className={`sp-window ${isOpen ? 'visible' : 'hidden'}`}>
